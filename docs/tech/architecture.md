@@ -10,7 +10,7 @@ Any contract change lands in this file in the same PR. Rationale: `decisions.md`
 | `oxysol-core` | `crates/core` | cards, decks, shuffling, rules of four games, session (undo/redo, replay) | `serde`, `thiserror` |
 | `oxysol-tui` | `crates/tui` | rendering, layout, input, themes, localization, screens, accessibility | `oxysol-core`, `ratatui` (Crossterm via `ratatui::crossterm`), `serde`, `toml`, `thiserror`, `tracing` |
 | `oxysol` | `src/` (lib + bin) | entry point, arguments, paths, JSON persistence, audio output, logging, panic hook | both above, `serde_json`, `directories`, `midly`, `cpal`, `tracing`, `tracing-subscriber`, `thiserror` |
-| `xtask` | `xtask/` | `check`, `lint`, `sync-metadata`, `fonts`, `midi`, `version` | `syn`, `proc-macro2`, `toml`, `toml_edit`, `ra_ap_rustc_lexer` |
+| `xtask` | `xtask/` | `check`, `lint`, `sync-metadata`, `fonts`, `midi`, `version` | `syn`, `proc-macro2`, `toml`, `toml_edit`, `thiserror`, `ra-ap-rustc_lexer` |
 
 `oxysol` → `oxysol-tui` → `oxysol-core`. The engine uses no `std::fs`, `std::io`, `std::env`,
 `std::time`, `std::net`, `std::process`, `std::thread` and no printing macros.

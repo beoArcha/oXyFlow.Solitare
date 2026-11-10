@@ -25,13 +25,16 @@ writes the contract; micro tasks M-01…M-06 fill in the lint rules, metadata sy
 
 - **Owner:** Sonnet
 - **Depends on:** P1-01
-- **Files:** `crates/core/src/{game.rs,session.rs}`, `crates/core/src/games/**` (stubs), `crates/core/tests/playout.rs`
+- **Files:** `crates/core/src/{game.rs,session.rs}`, `crates/core/src/games/**` (stubs), `crates/core/tests/playout.rs`, `xtask/src/check.rs`
 - **Scope:**
   - `game.rs`: trait `Game`, `Variant` (with `Variant::ALL`), `DrawCount`, `SuitCount`, `deal(variant, seed)`.
   - Stubs for the four games with final type names and `deal` constructors, compiling and lint-clean,
     so phase 2 fills them in without touching `game.rs`.
   - `session.rs`: `Session`, `SessionRecord`, `RestoreError`; undo, redo, `restart` and `restore` by
     replaying the log from the seed.
+  - `xtask/src/check.rs`: `check --quick` currently runs only `--lib --bins --test integration`.
+    Make it run every test target except `architecture` and `e2e`, so engine integration tests
+    (`playout`, later `flows`) are part of the quick check.
   - `tests/playout.rs`: one shared test over every `Variant` and seeds 0..50 — a random playout
     drawn from `legal_moves()` checking:
     1. every move from `legal_moves()` is accepted by `apply`;

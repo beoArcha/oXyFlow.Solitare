@@ -56,8 +56,8 @@ Micro tasks run alongside; `micro.md` lists what each one waits for. Fifteen of 
 
 | ID | Task | Owner | Depends on | Status |
 |---|---|---|---|---|
-| U-01 | Decisions, master prompt, repository | User | — | TODO |
-| P0-01 | Repository skeleton and workspace | Haiku | U-01 | TODO |
+| U-01 | Decisions, master prompt, repository | User | — | IN PROGRESS (owner name, `gh auth login`) |
+| P0-01 | Repository skeleton and workspace | Haiku | U-01 | DONE (local commit `e1c84f2`, not pushed) |
 | P0-02 | Master prompt in English with amendments | Haiku | P0-01 | TODO |
 | P0-03 | CI, branch protection, promotion | Haiku | P0-01 | TODO |
 | P1-01 | Engine domain model | Sonnet | P0-01 | TODO |
