@@ -1,0 +1,73 @@
+[package]
+name = "oxysol"
+description = "Ultimate Office Solitaire for the terminal"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "oxysol"
+path = "src/main.rs"
+
+[dependencies]
+oxysol-core.workspace = true
+oxysol-tui.workspace = true
+directories.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true
+toml.workspace = true
+
+[workspace]
+members = [".", "crates/core", "crates/tui", "xtask"]
+resolver = "3"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+repository = "https://github.com/oXyFlow/oXyFlow.Solitare"
+
+[workspace.dependencies]
+oxysol-core = { path = "crates/core" }
+oxysol-tui = { path = "crates/tui" }
+serde = { version = "1.0.229", features = ["derive"] }
+thiserror = "2.0.21"
+ratatui = "0.30.2"
+toml = "1.2.1"
+tracing = "0.1.44"
+tracing-subscriber = "0.3.23"
+serde_json = "1.0.154"
+directories = "6.0.0"
+syn = { version = "3.0.10", features = ["full", "visit"] }
+proc-macro2 = { version = "1.0.107", features = ["span-locations"] }
+toml_edit = "0.25.19"
+ra-ap-rustc_lexer = "0.184.0"
+tempfile = "3.27.0"
+
+[workspace.lints.rust]
+unsafe_code = "deny"
+unused_must_use = "deny"
+
+[workspace.lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+todo = "deny"
+unimplemented = "deny"
+dbg_macro = "deny"
+let_underscore_must_use = "deny"
+allow_attributes_without_reason = "deny"
+undocumented_unsafe_blocks = "deny"
+
+[lints]
+workspace = true

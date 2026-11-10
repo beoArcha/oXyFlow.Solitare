@@ -1,0 +1,1 @@
+//! ANSI color theme variant.

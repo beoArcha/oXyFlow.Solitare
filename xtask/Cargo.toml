@@ -1,0 +1,19 @@
+[package]
+name = "xtask"
+description = "Development tooling for oXySol: quality gates, lint, metadata sync"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+publish = false
+
+[dependencies]
+proc-macro2.workspace = true
+ra-ap-rustc_lexer.workspace = true
+syn.workspace = true
+thiserror.workspace = true
+toml.workspace = true
+toml_edit.workspace = true
+
+[lints]
+workspace = true

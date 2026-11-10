@@ -1,0 +1,19 @@
+[package]
+name = "oxysol-tui"
+description = "Terminal user interface of oXySol: rendering, input, themes and localization"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+publish = false
+
+[dependencies]
+oxysol-core.workspace = true
+ratatui.workspace = true
+serde.workspace = true
+thiserror.workspace = true
+toml.workspace = true
+tracing.workspace = true
+
+[lints]
+workspace = true
