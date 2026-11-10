@@ -35,7 +35,7 @@ resolver = "3"
 version = "0.1.0"
 edition = "2024"
 license = "MIT"
-repository = "https://github.com/oXyFlow/oXyFlow.Solitare"
+repository = "https://github.com/beoArcha/oXyFlow.Solitare"
 
 [workspace.dependencies]
 oxysol-core = { path = "crates/core" }

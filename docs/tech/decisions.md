@@ -4,11 +4,6 @@ Updated 2026-11-10. This file overrides `master_prompt.md` where they differ.
 
 ## Open — owner: user
 
-### D-05 GitHub repository owner — needed when P0-01 pushes
-
-Visibility is settled (public, R-12). Still to name: the owner account or organization. Assumed
-`oXyFlow`; P0-01 does not push until the user confirms the remote.
-
 ### D-06 Card graphics delivery — confirmed after spike X-01
 
 Proposed in T-16: vector art reaches the terminal as a font. Consequence to accept: a player sees the
@@ -39,7 +34,7 @@ else gets the Unicode or ASCII rendering. The app cannot install or select a fon
 | R-09 | Roles: Fable is architect and manager and does not do routine writing. Sonnet and Haiku implement. Antigravity (Gemini 3.8 Flash) instances get only small, self-contained tasks because they lose context and are slow. | — |
 | R-10 | License: MIT, for code and for artwork, fonts and sound built from our own sources. A patched third-party base font (T-16) would keep its own license. | §20 |
 | R-11 | Pyramid ships as two games: Relaxed (3 passes through the stock, win when the pyramid is cleared) and Classic (1 pass, win when all 52 cards are removed). Configurable per-game options are post-MVP. | §8 |
-| R-12 | The repository is public. | §18 |
+| R-12 | The repository is public and lives at `github.com/beoArcha/oXyFlow.Solitare`. The name `oXyFlow` is taken on GitHub by an unrelated personal account, so no organization of that name is used; `oXyFlow` remains the project group name. | §2, §18 |
 | R-13 | The default deck style is International (♣ ♦ ♥ ♠ with A, K, Q, J). French, German, Italian and any later style are skins of the same 52 cards. | §9 |
 
 ## Technical decisions — owner: architect

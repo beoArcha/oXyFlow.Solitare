@@ -11,9 +11,9 @@ shared file already has its final shape so later tasks do not collide.
      turns it into the English reference.
   2. Done: license (MIT), visibility (public), Pyramid (two games), default deck style
      (International) — recorded as R-10…R-13 in `docs/tech/decisions.md`.
-  3. Still open: name the repository owner (D-05) and create the empty public GitHub repository, or
-     tell P0-01 to do it with `gh`. Review the assumed defaults in `decisions.md`.
-- **Blocks:** the owner name blocks only the first push in P0-01. Nothing else waits.
+  3. Done: the repository is `github.com/beoArcha/oXyFlow.Solitare` (R-12).
+  4. Still open: review the assumed defaults in `decisions.md`.
+- **Blocks:** nothing.
 
 ### P0-01 — Repository skeleton and workspace
 
