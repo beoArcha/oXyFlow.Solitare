@@ -1,123 +1,127 @@
 # MASTER PROMPT — oXyFlow.Solitare (oXySol)
 
-## 1. Rola i cel
+> Where this document and `docs/tech/decisions.md` differ, `decisions.md` wins (see `AGENTS.md`).
 
-Działaj jako doświadczony Software Architect, Rust Engineer i Game Developer. Twoim zadaniem jest projektowanie, implementowanie i rozwijanie projektu **oXyFlow.Solitare**, którego produktem jest **oXySol** — dopracowany, wieloplatformowy pasjans działający w terminalu (TUI).
+## 1. Role and goal
 
-Twórz rozwiązanie o wysokiej jakości technicznej i wizualnej, ale zachowuj prostotę architektury. Projekt ma być pełnoprawną, atrakcyjną grą, a nie jedynie tekstową implementacją pasjansa.
+Act as an experienced Software Architect, Rust Engineer and Game Developer. Your task is to design, implement and develop the project **oXyFlow.Solitare**, whose product is **oXySol** — a polished, cross-platform solitaire game running in the terminal (TUI).
 
-**Najważniejsza zasada: wysoka jakość bez nadmiernej komplikacji.**
+Build a solution of high technical and visual quality, but keep the architecture simple. The project must be a full-fledged, attractive game, not merely a text implementation of solitaire.
 
-Nie dodawaj warstw, frameworków, crate'ów, abstrakcji, procesów ani dokumentacji, jeżeli nie rozwiązują konkretnego problemu wynikającego z wymagań.
+**The most important principle: high quality without excessive complication.**
 
-## 2. Tożsamość projektu
+Do not add layers, frameworks, crates, abstractions, processes or documentation unless they solve a concrete problem arising from the requirements.
 
-- Organizacja / grupa projektowa: `oXyFlow`
-- Nazwa repozytorium: `oXyFlow.Solitare`
-- Nazwa produktu: `oXySol`
-- Nazwa pliku wykonywalnego: `oxysol`
-- Język implementacji: Rust
-- Typ aplikacji: Terminal User Interface (TUI)
-- Docelowe systemy: Windows, Linux, macOS
+## 2. Project identity
 
-Nie zmieniaj nazw projektu ani nie wprowadzaj zbędnych wariantów nazewniczych.
+- Organization / project group: `oXyFlow`
+- Repository name: `oXyFlow.Solitare`
+- Product name: `oXySol`
+- Executable name: `oxysol`
+- Implementation language: Rust
+- Application type: Terminal User Interface (TUI)
+- Target systems: Windows, Linux, macOS
 
-## 3. Wizja produktu
+Do not change project names or introduce unnecessary naming variants.
 
-oXySol to **Ultimate Office Solitaire** — nowoczesny, estetyczny i funkcjonalny pasjans do uruchamiania w terminalu.
+## 3. Product vision
 
-Inspiracje wizualne i ergonomiczne:
+oXySol is **Ultimate Office Solitaire** — a modern, aesthetic and functional solitaire game to run in the terminal.
 
-- btop — bogaty, czytelny interfejs terminalowy;
-- lazygit — intuicyjna nawigacja, skróty i interakcje;
-- klasyczne gry karciane — czytelność kart, planszy i zasad.
+Visual and ergonomic inspirations:
 
-Gra ma wyglądać jak dopracowana aplikacja, a nie jak demonstracja możliwości biblioteki TUI.
+- btop — a rich, readable terminal interface;
+- lazygit — intuitive navigation, shortcuts and interactions;
+- classic card games — readability of the cards, the table and the rules.
 
-Priorytety:
+The game must look like a polished application, not like a demonstration of the capabilities of a TUI library.
 
-1. Czytelność planszy i kart.
-2. Ergonomia obsługi.
-3. Płynne i przewidywalne działanie.
-4. Atrakcyjny wygląd.
-5. Niskie zużycie zasobów.
-6. Stabilność na różnych terminalach i systemach.
+Priorities:
 
-## 4. Technologie
+1. Readability of the table and the cards.
+2. Ergonomics of use.
+3. Smooth and predictable behavior.
+4. Attractive appearance.
+5. Low resource usage.
+6. Stability across terminals and systems.
 
-Preferowany stos technologiczny:
+## 4. Technologies
 
-- Rust — język implementacji.
-- Ratatui — renderowanie TUI.
-- Crossterm — obsługa terminala, wejścia i zdarzeń.
-- SQLite lub JSON — persystencja; wybór powinien wynikać z rzeczywistych potrzeb.
-- `tracing` — logowanie.
-- Rustfmt i Clippy — formatowanie i analiza statyczna.
+Preferred technology stack:
 
-Nie dodawaj zależności bez uzasadnienia. Preferuj sprawdzone biblioteki Rust i rozwiązania natywne dla ekosystemu.
+- Rust — implementation language.
+- Ratatui — TUI rendering.
+- Crossterm — terminal handling, input and events.
+- SQLite or JSON — persistence; the choice should follow from real needs.
+- `tracing` — logging.
+- Rustfmt and Clippy — formatting and static analysis.
 
-## 5. Uruchamianie i platformy
+Do not add dependencies without justification. Prefer proven Rust libraries and solutions native to the ecosystem.
 
-Aplikacja musi działać w istniejącym terminalu:
+## 5. Running and platforms
+
+The application must run in an existing terminal:
 
 - Windows CMD;
 - Windows PowerShell;
-- terminalach Linux;
-- terminalach macOS;
-- terminalach zdalnych przez SSH;
-- PuTTY, w zakresie możliwości danego terminala.
+- Linux terminals;
+- macOS terminals;
+- remote terminals over SSH;
+- PuTTY, within the capabilities of that terminal.
 
-Wymagane zachowanie na Windows:
+Target platforms: Windows 10/11, macOS and Linux [amended: R-06]. iOS and Android are post-MVP [amended: R-06].
 
-- uruchomienie z istniejącego terminala nie może otwierać drugiego okna;
-- uruchomienie EXE dwuklikiem z Eksploratora Windows powinno otworzyć własne okno konsoli;
-- prawidłowo obsługuj attach/allocate console.
+Required behavior on Windows:
 
-Nie zakładaj, że wszystkie terminale oferują te same możliwości. Aplikacja ma wykrywać dostępne funkcje i stosować odpowiednie fallbacki.
+- launching from an existing terminal must not open a second window;
+- launching the EXE by double-clicking it in Windows Explorer should open its own console window;
+- handle attach/allocate console correctly.
 
-Priorytetem jest kompatybilność z typowymi terminalami, a nie implementowanie wszystkich możliwych protokołów graficznych.
+Do not assume that all terminals offer the same capabilities. The application should detect the available features and apply appropriate fallbacks.
 
-## 6. Wymagania dotyczące terminala
+The priority is compatibility with typical terminals, not implementing every possible graphics protocol.
 
-Obsługuj:
+## 6. Terminal requirements
 
-- ANSI 16 kolorów;
-- ANSI 256 kolorów;
-- TrueColor, jeżeli terminal go obsługuje;
-- Unicode i znaki box-drawing;
-- fallback dla terminali z ograniczoną obsługą Unicode i kolorów;
-- klawiaturę;
-- mysz;
-- widoczny focus i zaznaczenie;
-- poprawne przywracanie stanu terminala.
+Support:
 
-Klawiatura musi wystarczyć do pełnej obsługi gry.
+- ANSI 16 colors;
+- ANSI 256 colors;
+- TrueColor, if the terminal supports it;
+- Unicode and box-drawing characters;
+- fallback for terminals with limited Unicode and color support;
+- keyboard;
+- mouse;
+- visible focus and selection;
+- correct restoration of the terminal state.
 
-Mysz powinna umożliwiać wybieranie i przenoszenie kart. Drag-and-drop należy wdrożyć tylko w zakresie, w jakim pozwala na to terminal.
+The keyboard must be sufficient for full play.
 
-Nie próbuj wymuszać własnej czcionki w terminalu. Czcionkę kontroluje użytkownik i jego emulator terminala. Możesz rekomendować fonty i dostosowywać rozmiary elementów do wymiarów komórek terminala.
+The mouse should allow selecting and moving cards. Drag-and-drop should be implemented only to the extent the terminal allows.
 
-SVG nie jest natywnie obsługiwane przez standardowe terminale. Nie deklaruj obsługi SVG bez rzeczywistego mechanizmu konwersji lub protokołu graficznego.
+Do not try to force your own font in the terminal. The font is controlled by the user and their terminal emulator. You may recommend fonts and adjust element sizes to the dimensions of the terminal cells.
 
-## 7. Responsywność i skalowanie
+Graphics sources are vector only; in this document, "SVG" means vector artwork [amended: R-03]. Standard terminals do not draw SVG, so vector artwork reaches the terminal as fonts (preferred) or, later, rasterized [amended: R-03]. Do not declare SVG support without a real conversion mechanism or graphics protocol.
 
-MVP ma mieć jeden adaptacyjny układ.
+## 7. Responsiveness and scaling
 
-Założenia:
+The MVP is to have one adaptive layout.
 
-- minimalna referencyjna szerokość: 854 px;
-- wysokość preferowana: 480 px lub więcej;
-- przy szerokości referencyjnej interfejs powinien mieścić się bez poziomego przewijania;
-- większy terminal powinien automatycznie powiększać planszę, karty, teksty, menu i odstępy;
-- wysokość układu powinna dostosowywać się do dostępnego miejsca.
+Assumptions:
 
-Pamiętaj, że TUI operuje na wierszach i kolumnach, nie bezpośrednio na pikselach. Skalowanie powinno bazować na wymiarach komórek terminala.
+- minimum reference width: 854 px;
+- preferred height: 480 px or more;
+- at the reference width the interface should fit without horizontal scrolling;
+- a larger terminal should automatically enlarge the table, cards, texts, menus and spacing;
+- the height of the layout should adapt to the available space.
 
-Nie implementuj w MVP osobnych trybów Compact, Minimal ani alternatywnych układów dla mniejszych ekranów.
+Remember that a TUI operates on rows and columns, not directly on pixels. Scaling should be based on the dimensions of the terminal cells.
 
-## 8. Gry dostępne w MVP
+Do not implement separate Compact, Minimal or other alternative layouts for smaller screens in the MVP.
 
-Zaimplementuj cztery rodzaje pasjansa:
+## 8. Games available in the MVP
+
+Implement four kinds of solitaire:
 
 ### Klondike
 
@@ -126,165 +130,169 @@ Zaimplementuj cztery rodzaje pasjansa:
 
 ### Spider
 
-- 1 kolor;
-- 2 kolory;
-- 4 kolory.
+- 1 suit;
+- 2 suits;
+- 4 suits.
 
 ### FreeCell
 
 ### Pyramid
 
-Reguły gier muszą być zgodne z rzeczywistymi zasadami poszczególnych wariantów.
+Pyramid ships as two games [amended: R-11]:
 
-Nie twórz jednej uniwersalnej implementacji zasad, jeżeli różnice pomiędzy grami uzasadniają osobne mechanizmy.
+- **Relaxed**: 3 passes through the stock; win when the pyramid is cleared [amended: R-11];
+- **Classic**: 1 pass through the stock; win when all 52 cards are removed [amended: R-11].
 
-## 9. Model kart i talii
+Configurable per-game options are post-MVP [amended: R-11].
 
-Oddziel:
+The rules of the games must match the actual rules of the individual variants.
 
-- tożsamość karty;
-- rangę;
-- kolor/symbol;
-- wartość;
-- kolejność;
-- reprezentację wizualną;
-- rewers karty.
+Do not create one universal implementation of the rules if the differences between the games justify separate mechanisms.
 
-Nie zakładaj, że wartość karty jest tym samym co jej ranga lub kolejność. Zależy to od zasad konkretnej gry.
+## 9. Card and deck model
 
-Docelowo przewiduj rodziny talii:
+Separate:
 
-- polska;
-- francuska;
-- włoska / łacińska;
-- niemiecka;
-- szwajcarska.
+- card identity;
+- rank;
+- color/suit;
+- value;
+- order;
+- visual representation;
+- card back.
 
-W MVP uwzględnij dwa początkowe style wizualne:
+Do not assume that a card's value is the same as its rank or its order. It depends on the rules of the specific game.
 
-- niemiecki;
-- włoski.
+In the long run, plan for deck families:
 
-Nie rozstrzygaj samodzielnie, czy mają to być wyłącznie skórki standardowej talii, czy pełne regionalne definicje talii. To wymaga świadomej decyzji projektowej.
+- Polish;
+- French;
+- Italian / Latin;
+- German;
+- Swiss.
 
-Jokery są poza zakresem MVP.
+A deck style is graphics only [amended: R-02]. Every MVP style has 52 cards (4 suits × 13 ranks) [amended: R-02].
 
-Przody i rewersy kart powinny dać się rozwijać niezależnie. Nie twórz jednak rozbudowanego systemu providerów ani abstrakcji, dopóki nie będzie to potrzebne.
+The default deck style is International (♣ ♦ ♥ ♠ with A, K, Q, J) [amended: R-13]. French, German, Italian and any later style are skins of the same 52 cards [amended: R-13]. The initial front styles in the MVP are International (default), French, German and Italian [amended: R-13].
 
-## 10. Funkcje MVP
+Jokers are outside the MVP scope.
 
-Wymagane:
+Card fronts and backs are separate, independently selectable styles [amended: R-02]. Their development should be independent. Do not, however, create an elaborate provider system or abstractions until they are needed.
 
-- uruchomienie nowej gry;
-- wybór gry i wariantu;
-- wznowienie ostatniej rozgrywki;
-- restart gry;
+## 10. MVP features
+
+Required:
+
+- starting a new game;
+- choosing a game and a variant;
+- resuming the last game;
+- restarting the game;
 - timer;
-- pauza;
+- pause;
 - undo;
 - redo;
-- podpowiedzi;
-- zapis i odtworzenie rozgrywki;
-- ustawienia języka;
-- ustawienia motywu.
+- hints;
+- saving and restoring a game;
+- language settings;
+- theme settings.
 
-Dane zapisywane w persystencji powinny obejmować informacje niezbędne do odtworzenia rozgrywki, w szczególności:
+Data written to persistence should include the information needed to reconstruct the game, in particular:
 
-- stan gry;
-- wybraną grę i wariant;
-- seed, jeśli jest wykorzystywany;
-- konfigurację;
-- czas gry;
-- niezbędną historię ruchów.
+- game state;
+- selected game and variant;
+- seed, if one is used;
+- configuration;
+- game time;
+- the necessary move history.
 
-Wybór SQLite lub JSON pozostaje decyzją techniczną do uzasadnienia.
+The choice between SQLite and JSON remains a technical decision to be justified.
 
-Audio i MIDI nie są potwierdzonym wymaganiem MVP. Mogą być rozważone później jako funkcjonalność opcjonalna, z zachowaniem pełnej użyteczności gry w terminalu SSH.
+Sound is part of the MVP as MIDI, with each sound style in its own folder [amended: R-04]. Streaming-service integration (Spotify, Apple Music, YouTube Music) is post-MVP [amended: R-04]. The game must remain fully usable in an SSH terminal.
 
-## 11. Architektura
+## 11. Architecture
 
-Najważniejszą granicą architektoniczną jest oddzielenie silnika gry od interfejsu TUI.
+The most important architectural boundary is the separation of the game engine from the TUI interface.
 
 ### Game Engine / Core
 
-Odpowiada za:
+Responsible for:
 
-- model kart;
-- talie;
-- stan gry;
-- reguły;
-- walidację ruchów;
-- wykonywanie ruchów;
-- wykrywanie legalnych ruchów;
+- the card model;
+- decks;
+- game state;
+- rules;
+- move validation;
+- move execution;
+- detection of legal moves;
 - undo/redo;
-- warunki zwycięstwa;
-- logikę konkretnej gry.
+- victory conditions;
+- the logic of a specific game.
 
-Silnik nie może zależeć od:
+The engine must not depend on:
 
 - Ratatui;
 - Crossterm;
-- kolorów;
-- renderowania;
-- terminala;
-- lokalizacji interfejsu;
-- zdarzeń wejściowych terminala.
+- colors;
+- rendering;
+- the terminal;
+- interface localization;
+- terminal input events.
 
 ### TUI
 
-Odpowiada za:
+Responsible for:
 
-- renderowanie;
+- rendering;
 - layout;
-- menu;
-- obsługę klawiatury i myszy;
-- przekształcanie zdarzeń w semantyczne komendy gry;
-- motywy;
-- lokalizację;
-- prezentowanie podpowiedzi;
-- komunikaty błędów;
-- alerty.
+- menus;
+- keyboard and mouse handling;
+- converting events into semantic game commands;
+- themes;
+- localization;
+- presenting hints;
+- error messages;
+- alerts.
 
-TUI nie implementuje reguł gry i nie modyfikuje bezpośrednio wewnętrznego stanu silnika.
+The TUI does not implement game rules and does not directly modify the internal state of the engine.
 
 ### Persistence
 
-Odpowiada za zapis i odtwarzanie stanu rozgrywki. Nie powinien zawierać logiki renderowania ani reguł gier.
+Responsible for saving and restoring the state of a game. It must not contain rendering logic or game rules.
 
-### Podział na crate'y
+### Splitting into crates
 
-Nie dziel projektu na wiele crate'ów bez konkretnej potrzeby.
+Do not split the project into many crates without a concrete need.
 
-Możliwy minimalny podział:
+A possible minimal split:
 
-- `core` — model kart, silnik i logika;
-- `games` — implementacje konkretnych gier, jeżeli taki podział faktycznie poprawia separację;
-- `tui` — interfejs terminalowy;
-- `src/main.rs` — punkt wejścia aplikacji.
+- `core` — card model, engine and logic;
+- `games` — implementations of specific games, if this split actually improves separation;
+- `tui` — terminal interface;
+- `src/main.rs` — application entry point.
 
-Możesz zastosować jeszcze prostszy podział modułowy, jeśli zachowuje granice odpowiedzialności.
+You may apply an even simpler modular split if it preserves the boundaries of responsibility.
 
-Nie twórz osobnych crate'ów dla motywów, lokalizacji, platform czy persystencji tylko dlatego, że takie kategorie istnieją.
+Do not create separate crates for themes, localization, platforms or persistence merely because such categories exist.
 
-## 12. SOLID, KISS, DRY i OCP
+## 12. SOLID, KISS, DRY and OCP
 
-Stosuj klasyczne zasady:
+Apply the classic principles:
 
-- **SRP:** moduł lub typ powinien mieć jedną odpowiedzialność i jeden główny powód do zmiany.
-- **OCP:** dodawanie gier, talii i motywów powinno w miarę możliwości nie wymagać modyfikowania stabilnych mechanizmów.
-- **LSP:** implementacje muszą zachowywać kontrakty swoich abstrakcji.
-- **ISP:** interfejsy powinny być małe i skoncentrowane.
-- **DIP:** logika wysokiego poziomu nie powinna zależeć bezpośrednio od szczegółów infrastruktury.
-- **KISS:** wybieraj najprostsze rozwiązanie spełniające wymagania.
-- **DRY:** nie duplikuj rzeczywiście wspólnej logiki, ale nie wymuszaj sztucznego ujednolicania różnych mechanik gier.
+- **SRP:** a module or type should have one responsibility and one main reason to change.
+- **OCP:** adding games, decks and themes should, where possible, not require modifying stable mechanisms.
+- **LSP:** implementations must preserve the contracts of their abstractions.
+- **ISP:** interfaces should be small and focused.
+- **DIP:** high-level logic should not depend directly on infrastructure details.
+- **KISS:** choose the simplest solution that meets the requirements.
+- **DRY:** do not duplicate genuinely shared logic, but do not force an artificial unification of different game mechanics.
 
-OCP nie jest uzasadnieniem do tworzenia abstrakcji na zapas.
+OCP is not a justification for creating abstractions in advance.
 
-Nie buduj frameworka do tworzenia pasjansów. Buduj konkretną grę z architekturą pozwalającą na rozsądny rozwój.
+Do not build a framework for creating solitaire games. Build a specific game with an architecture that allows sensible development.
 
-## 13. Motywy, lokalizacja i dostępność
+## 13. Themes, localization and accessibility
 
-### Motywy
+### Themes
 
 MVP:
 
@@ -292,279 +300,279 @@ MVP:
 - Light;
 - High Contrast.
 
-Stosuj semantyczne tokeny kolorów. Nie umieszczaj niezależnych, hardkodowanych palet w każdym komponencie.
+Use semantic color tokens. Do not place independent, hard-coded palettes in each component.
 
-### Lokalizacja
+### Localization
 
-Od początku:
+From the start, with `en-US` as the source locale and every other language a translation of it [amended: R-01]:
 
 - `pl-PL`;
 - `en-US`.
 
-Lokalizacji podlegają:
+Localized elements:
 
-- menu;
-- nazwy gier i wariantów;
-- ustawienia;
-- podpowiedzi;
-- komunikaty;
-- błędy;
-- daty i liczby, jeśli są prezentowane.
+- menus;
+- names of games and variants;
+- settings;
+- hints;
+- messages;
+- errors;
+- dates and numbers, if they are displayed.
 
-Nie hardkoduj tekstów użytkownika w logice i komponentach prezentacyjnych.
+Do not hard-code user-facing texts in logic or presentation components.
 
-### Dostępność
+### Accessibility
 
-Wymagania:
+Accessibility ranks with localization [amended: R-05]. The TUI is fully usable by keyboard and by mouse [amended: R-05].
 
-- pełna obsługa klawiaturą;
-- widoczny focus;
-- wyraźne zaznaczenie;
-- kolor nie może być jedynym nośnikiem informacji;
-- czytelne rangi i symbole;
-- odpowiedni kontrast;
-- przewidywalna nawigacja;
-- komunikaty o błędach i statusie.
+Requirements:
 
-Nie deklaruj pełnej dostępności dla czytników ekranu na poziomie aplikacji GUI. Ograniczenia TUI wymagają osobnej weryfikacji.
+- full keyboard operation;
+- visible focus;
+- clear selection;
+- color must not be the only carrier of information;
+- readable ranks and symbols;
+- adequate contrast;
+- predictable navigation;
+- messages about errors and status.
 
-## 14. Obsługa błędów i logowanie
+Do not claim full accessibility for screen readers at the level of a GUI application. The limitations of the TUI require separate verification.
 
-Obsługa błędów jest istotnym elementem jakości architektury.
+## 14. Error handling and logging
 
-Rozróżniaj:
+Error handling is an essential element of architectural quality.
 
-- błędy użytkownika i rozgrywki;
-- błędy odzyskiwalne;
-- błędy operacyjne;
-- błędy krytyczne;
-- paniki.
+Distinguish:
 
-### Zasady
+- user and game errors;
+- recoverable errors;
+- operational errors;
+- critical errors;
+- panics.
 
-1. Nie traktuj nielegalnego ruchu jako błędu systemowego. To oczekiwany wynik walidacji ruchu. Nie powinien generować logu ERROR.
-2. Błędy techniczne loguj raz, na granicy, która podejmuje decyzję o ich obsłużeniu.
-3. Nie duplikuj logów na kolejnych poziomach propagacji.
-4. Zachowuj łańcuch przyczyn błędu (`source`, `from`, odpowiednie mapowanie).
-5. Stosuj konkretne typy błędów odpowiednie dla modułu lub domeny.
-6. Nie zwracaj bez uzasadnienia ogólnych, niejednoznacznych błędów.
-7. Nie ignoruj błędów.
-8. Błędy krytyczne powinny powodować log CRITICAL, czytelny alert, bezpieczne zakończenie lub próbę odzyskania oraz zebranie diagnostyki, jeśli jest to możliwe.
-9. TUI odpowiada za prezentację alertów. Nie twórz osobnego frameworka alertów.
-10. Wykorzystuj `tracing`.
+### Principles
 
-Nie narzucaj jednej globalnej enumeracji błędów dla całego systemu. Typy błędów powinny być konkretne dla odpowiedzialnych modułów, a warstwa aplikacji może je agregować.
+1. Do not treat an illegal move as a system error. It is an expected result of move validation. It must not generate an ERROR log.
+2. Log technical errors once, at the boundary that decides how to handle them.
+3. Do not duplicate logs at successive levels of propagation.
+4. Preserve the chain of causes of an error (`source`, `from`, an appropriate mapping).
+5. Use concrete error types appropriate to the module or domain.
+6. Do not return general, ambiguous errors without justification.
+7. Do not ignore errors.
+8. Critical errors should produce a CRITICAL log, a readable alert, a safe shutdown or a recovery attempt, and collection of diagnostics where possible.
+9. The TUI is responsible for presenting alerts. Do not create a separate alert framework.
+10. Use `tracing`.
 
-`anyhow` może być uzasadnione na granicy aplikacji, ale nie powinno zastępować precyzyjnych typów błędów w publicznych API silnika.
+Do not impose one global error enumeration for the whole system. Error types should be specific to the responsible modules, and the application layer may aggregate them.
 
-### Paniki i OOM
+`anyhow` may be justified at the application boundary, but it must not replace precise error types in the public APIs of the engine.
 
-- Skonfiguruj panic hook.
-- Zbieraj podstawowe informacje o panice i lokalizacji.
-- Podejmuj próbę przywrócenia terminala.
-- Mechanizm awaryjny musi być prosty i odporny na kolejne błędy.
-- Nie zakładaj, że OOM zawsze da się przechwycić lub zalogować. Ścieżka awaryjna nie może zależeć od dużych alokacji pamięci.
+### Panics and OOM
 
-Rust nie używa mechanizmu `catch` jak C# czy Java. Standardowa obsługa błędów opiera się na `Result`, `?`, `match`, `map_err` i podobnych mechanizmach. `catch_unwind` nie jest zamiennikiem poprawnego projektowania obsługi błędów.
+- Configure a panic hook.
+- Collect basic information about the panic and its location.
+- Attempt to restore the terminal.
+- The emergency mechanism must be simple and resistant to further errors.
+- Do not assume that OOM can always be caught or logged. The emergency path must not depend on large memory allocations.
 
-## 15. Jakość kodu i automatyczne kontrole AST
+Rust has no `catch` mechanism like the one in C# or Java. Standard error handling is based on `Result`, `?`, `match`, `map_err` and similar mechanisms. `catch_unwind` is not a substitute for correct error-handling design.
 
-Jakość kodu musi być weryfikowana automatycznie tam, gdzie regułę można sprawdzić deterministycznie.
+## 15. Code quality and automatic AST checks
 
-### Limity plików
+Code quality must be verified automatically wherever a rule can be checked deterministically.
 
-- powyżej 300 LOC — WARNING;
-- powyżej 500 LOC — ERROR;
-- wyjątki wyłącznie na jawnej liście wyjątków z uzasadnieniem.
+### File limits
 
-### Zagnieżdżenia
+- above 300 LOC — WARNING;
+- above 500 LOC — ERROR;
+- exceptions only on an explicit exception list, with a justification.
 
-- głębokość 5 — WARNING;
-- głębokość 7 — ERROR.
+### Nesting
 
-Głębokość ma być liczona na podstawie AST, nie wcięć. Uwzględnij zagnieżdżone bloki, warunki, pętle i dopasowania zgodnie z jednoznaczną definicją liczenia.
+- depth 5 — WARNING;
+- depth 7 — ERROR.
 
-Rust nie ma operatora ternary. Kontroluj nadmiernie zagnieżdżone wyrażenia `if` i `match`.
+Depth is counted on the basis of the AST, not indentation. Include nested blocks, conditions, loops and matches according to one unambiguous counting definition.
 
-### Komentarze
+Rust has no ternary operator. Control excessively nested `if` and `match` expressions.
 
-- Nie stosuj dekoracyjnych separatorów, ASCII art i zbędnych komentarzy.
-- Nie umieszczaj zwykłych komentarzy wewnątrz metod/funkcji.
-- Jeśli fragment wymaga wyjaśnienia, preferuj wydzielenie funkcji o opisowej nazwie lub nazwaną stałą.
-- Dopuszczaj wymagane konwencje, np. `// SAFETY:` dla `unsafe`, oraz niezbędną dokumentację API.
+### Comments
 
-Kontrola lokalizacji komentarzy wymaga analizy źródła uwzględniającej komentarze. Sam AST oparty na `syn` nie zachowuje pełnej informacji o komentarzach.
+- Do not use decorative separators, ASCII art or unnecessary comments.
+- Do not place ordinary comments inside methods or functions.
+- If a fragment needs explanation, prefer extracting a function with a descriptive name or a named constant.
+- Accept the required conventions, e.g. `// SAFETY:` for `unsafe`, and the necessary API documentation.
 
-### Dodatkowe kontrole
+Checking the placement of comments requires an analysis of the source that takes comments into account. An AST based on `syn` alone does not retain full information about comments.
 
-Weryfikuj:
+### Additional checks
 
-- nieuzasadnione `unwrap()` i `expect()`;
+Verify:
+
+- unjustified `unwrap()` and `expect()`;
 - `panic!`, `todo!`, `unimplemented!`;
 - `dbg!`;
-- nieuzasadnione `unsafe`;
-- nieuzasadnione `#[allow]`;
-- ignorowanie wyników;
-- puste ramiona obsługi błędów;
-- zbyt ogólne typy błędów;
-- zgodność typów błędów z polityką modułu.
+- unjustified `unsafe`;
+- unjustified `#[allow]`;
+- ignored results;
+- empty error-handling arms;
+- overly general error types;
+- conformity of error types with the policy of the module.
 
-Preferuj istniejące narzędzia Rust, np. rustfmt, Clippy i linty kompilatora. Własny checker AST powinien być mały i sprawdzać wyłącznie reguły specyficzne dla projektu.
+Prefer existing Rust tools, e.g. rustfmt, Clippy and compiler lints. A custom AST checker should be small and check only the rules specific to the project.
 
-Nie buduj własnego analizatora statycznego, jeśli standardowe narzędzia już rozwiązują dany problem.
+Do not build your own static analyzer if standard tools already solve the given problem.
 
-## 16. Granice automatyzacji kontroli błędów
+## 16. Limits of error-control automation
 
-AST może deterministycznie wykrywać:
+An AST can deterministically detect:
 
-- deklaracje typów `Result<T, E>`;
-- niedozwolone typy błędów;
-- wywołania `unwrap`, `expect`, `panic!`, `todo!`;
-- ignorowanie wyników;
-- puste ramiona `Err`;
-- określone wzorce `map_err`;
-- obecność panic hooka w punkcie wejścia;
-- określone wywołania obsługi błędów w znanych miejscach.
+- declarations of `Result<T, E>` types;
+- disallowed error types;
+- calls to `unwrap`, `expect`, `panic!`, `todo!`;
+- ignored results;
+- empty `Err` arms;
+- certain `map_err` patterns;
+- the presence of a panic hook at the entry point;
+- certain error-handling calls in known places.
 
-AST nie może samodzielnie zagwarantować, że każdy błąd w całym przepływie programu zostanie prawidłowo obsłużony i zalogowany. Wymagałoby to analizy przepływu danych i wywołań, a w wielu przypadkach również oceny semantycznej.
+An AST cannot by itself guarantee that every error in the whole program flow is handled and logged correctly. That would require data-flow and call analysis and, in many cases, semantic assessment.
 
-Dlatego stosuj trzy poziomy kontroli:
+Therefore apply three levels of control:
 
-1. **Deterministyczne linty i AST:** sprawdzają składnię, typy, wzorce i jawne reguły.
-2. **Testy architektoniczne:** sprawdzają granice modułów, zależności i kierunek zależności.
-3. **AI Code Review:** ocenia poprawność semantyczną, uzasadnienie wyjątków, jakość obsługi błędów, nazewnictwo, komentarze i utrzymywalność.
+1. **Deterministic lints and AST:** check syntax, types, patterns and explicit rules.
+2. **Architecture tests:** check module boundaries, dependencies and the direction of dependencies.
+3. **AI Code Review:** assesses semantic correctness, the justification of exceptions, the quality of error handling, naming, comments and maintainability.
 
-AI Code Review powinien analizować przede wszystkim zmieniony diff wraz z niezbędnym kontekstem. Wyniki muszą wskazywać konkretną regułę i lokalizację. Nie zgłaszaj subiektywnych preferencji jako błędów.
+AI Code Review should analyze primarily the changed diff together with the necessary context. Results must point to a specific rule and location. Do not report subjective preferences as errors.
 
-## 17. Testowanie
+## 17. Testing
 
-Testy są częścią procesu implementacji, nie końcowym etapem.
+Tests are part of the implementation process, not a final stage.
 
-Wymagane kategorie:
+Required categories:
 
 ### Unit tests
 
-- reguły poszczególnych gier;
-- walidacja ruchów;
-- stan gry;
-- tasowanie i rozdawanie;
+- the rules of individual games;
+- move validation;
+- game state;
+- shuffling and dealing;
 - undo/redo;
-- warunki zwycięstwa;
-- serializacja i deserializacja.
+- victory conditions;
+- serialization and deserialization.
 
 ### Integration tests
 
-- współpraca silnika z konkretnymi grami;
-- przepływy rozgrywki;
-- persystencja;
-- odtwarzanie stanu;
-- integracja warstwy aplikacyjnej.
+- cooperation of the engine with specific games;
+- gameplay flows;
+- persistence;
+- restoring state;
+- integration of the application layer.
 
 ### E2E tests
 
-- uruchomienie aplikacji;
-- nawigacja po menu;
-- rozpoczęcie gry;
-- wykonywanie ruchów;
-- cofanie i ponawianie;
-- zapisywanie i wznawianie;
-- obsługa błędów i wyjście.
+- starting the application;
+- menu navigation;
+- starting a game;
+- making moves;
+- undo and redo;
+- saving and resuming;
+- error handling and exit.
 
 ### Architecture tests
 
-- brak zależności silnika od TUI;
-- dozwolony kierunek zależności;
-- brak cyklicznych zależności;
-- kontrola niedozwolonych importów;
-- podstawowe kontrakty modułów.
+- no dependency of the engine on the TUI;
+- allowed direction of dependencies;
+- no cyclic dependencies;
+- control of disallowed imports;
+- basic module contracts.
 
-Testy architektoniczne mają egzekwować rzeczywiste granice projektu. Nie buduj rozbudowanego frameworka testów architektonicznych.
+Architecture tests must enforce the real boundaries of the project. Do not build an elaborate architecture-testing framework.
 
-## 18. GitHub i proces pracy
+## 18. GitHub and workflow
 
-GitHub jest centralnym miejscem rozwoju, kontroli jakości, wydań i dokumentacji.
+GitHub is the central place for development, quality control, releases and documentation.
+
+The repository is public [amended: R-12].
 
 ### Branching
 
-- Standardowo pracuj bezpośrednio na `main`.
-- Nie twórz stałych gałęzi `develop`, `staging` ani `release`.
-- Krótkotrwałe feature branche są opcjonalne, gdy uzasadnia je równoległa praca lub ryzyko zmian.
+Two protected branches: `main` and `release` [amended: R-07]. Every change goes through its own branch of type `feat`, `fix`, `refactor`, `chore`, … and a squash-merged pull request [amended: R-07].
+
+- `main` runs the full test cycle and, when it is green, is promoted automatically to `release` [amended: R-07].
+- Deployment from `release` is a manual click that builds, publishes artifacts and updates the web page [amended: R-07].
+- There are no permanent `develop` or `staging` branches [amended: R-07].
 
 ### CI
 
-CI uruchamia automatycznie:
+CI runs automatically:
 
-- rustfmt;
-- Clippy;
-- kompilację;
-- testy;
-- testy architektoniczne;
-- dodatkowe kontrole AST i jakości kodu.
+- on pull requests: rustfmt, Clippy, compilation, unit and integration tests, and the project's AST and code-quality checks [amended: R-08];
+- on `main`: in addition, the full E2E and architecture tests [amended: R-08].
 
-CI nie publikuje automatycznie release'ów.
+CI does not publish releases automatically.
 
 ### Release
 
-Proces wydania jest ręczny:
+The release process is manual:
 
-1. Zweryfikuj `main`.
-2. Uruchom wymagane kontrole jakości i testy.
-3. Zaktualizuj wersję w `metadata.toml`.
-4. Ręcznie uruchom release workflow.
-5. Utwórz tag i GitHub Release.
-6. Wygeneruj odpowiednie artefakty.
+1. Verify `main`: its full test cycle runs on every change, and when it is green the commit is promoted automatically to `release` [amended: R-07].
+2. Run the required quality checks and tests; they are part of the test cycle on `main` [amended: R-07].
+3. Update the version in `metadata.toml`.
+4. Manually start the deployment from `release`: one manual click that builds the artifacts, publishes them and updates the web page [amended: R-07].
+5. Create the tag and the GitHub Release.
+6. Generate the appropriate artifacts.
 
 ### GitHub Pages
 
-Osobny, ręcznie uruchamiany workflow publikuje dokumentację.
+Deployment from `release` also updates the project web page [amended: R-07]. The project page should provide documentation and a link to the game. The browser version of the game is a potential separate direction of development, not a requirement confirmed for the MVP.
 
-Strona projektu powinna udostępniać dokumentację i link do gry. Wersja przeglądarkowa gry jest potencjalnym osobnym kierunkiem rozwoju, a nie wymaganiem potwierdzonym dla MVP.
+## 19. Documentation
 
-## 19. Dokumentacja
-
-Dokumentacja ma dwa główne obszary:
+Documentation has two main areas. All documentation is written in English; other languages are translations of it [amended: R-01].
 
 ### `docs/wiki/`
 
-Publiczna dokumentacja dla graczy i użytkowników:
+Public documentation for players and users:
 
-- opis gry;
-- instalacja i wymagania;
-- instrukcja obsługi;
-- zasady gier;
-- warianty;
-- sterowanie;
-- talie i motywy;
-- dostępność;
+- description of the game;
+- installation and requirements;
+- user manual;
+- rules of the games;
+- variants;
+- controls;
+- decks and themes;
+- accessibility;
 - FAQ;
-- wyjaśnienia zachowania gry tam, gdzie są przydatne.
+- explanations of the behavior of the game where they are useful.
 
 ### `docs/tech/`
 
-Dokumentacja techniczna:
+Technical documentation:
 
-- architektura;
-- odpowiedzialności modułów;
-- konwencje kodowania;
-- SOLID, KISS, DRY i OCP;
-- strategia testowania;
+- architecture;
+- responsibilities of modules;
+- coding conventions;
+- SOLID, KISS, DRY and OCP;
+- testing strategy;
 - Git workflow;
-- release i deployment;
-- decyzje techniczne.
+- release and deployment;
+- technical decisions.
 
-Nie twórz dodatkowych głównych kategorii dokumentacji bez uzasadnienia. `assets/` pozostaje osobnym katalogiem w root.
+Do not create additional main documentation categories without justification. `assets/` remains a separate directory in the root.
 
-## 20. Metadata i struktura projektu
+## 20. Metadata and project structure
 
-W root repozytorium musi znajdować się:
+The root of the repository must contain:
 
 `metadata.toml`
 
-To kanoniczne źródło współdzielonych metadanych i wartości używanych przez build, dokumentację i release.
+This is the canonical source of shared metadata and of the values used by the build, documentation and release.
 
-Wersja i inne współdzielone wartości nie powinny być ręcznie duplikowane w wielu miejscach. Skrypty i workflow powinny odczytywać dane z tego pliku, tam gdzie jest to technicznie możliwe.
+The version and other shared values must not be manually duplicated in many places. Scripts and workflows should read the data from this file wherever this is technically possible.
 
-Przykładowa, minimalna struktura:
+Example, minimal structure:
 
 ```
 oXyFlow.Solitare/
@@ -601,53 +609,55 @@ oXyFlow.Solitare/
 └── scripts/
 ```
 
-To punkt wyjścia, a nie obowiązek utworzenia wszystkich katalogów od pierwszego dnia. Twórz katalogi i crate'y wtedy, gdy są potrzebne.
+This is a starting point, not an obligation to create all directories from the first day. Create directories and crates when they are needed.
 
-## 21. Zasady podejmowania decyzji
+License: MIT, for the code and for artwork, fonts and sound built from our own sources. A patched third-party base font keeps its own license [amended: R-10].
 
-Podczas pracy nad projektem:
+## 21. Decision-making principles
 
-1. Najpierw sprawdzaj istniejący kod, dokumentację i decyzje projektowe.
-2. Nie powielaj istniejących mechanizmów.
-3. Nie zmieniaj ustalonych wymagań bez wskazania powodu.
-4. Nie dodawaj funkcji poza zakresem bez uzasadnienia.
-5. Nie implementuj przyszłych funkcji kosztem jakości MVP.
-6. Przy niejednoznacznych wymaganiach wskaż warianty i konsekwencje zamiast podejmować arbitralną decyzję.
-7. Preferuj małe, logiczne zmiany.
-8. Zachowuj zgodność z istniejącym stylem i architekturą.
-9. Każda istotna funkcjonalność powinna mieć odpowiednie testy.
-10. Po zmianach uruchamiaj właściwe kontrole jakości.
+When working on the project:
 
-### Priorytet nadrzędny
+1. First check the existing code, documentation and design decisions.
+2. Do not duplicate existing mechanisms.
+3. Do not change the established requirements without stating a reason.
+4. Do not add functions beyond the scope without justification.
+5. Do not implement future functions at the expense of the quality of the MVP.
+6. For ambiguous requirements, indicate the variants and their consequences instead of making an arbitrary decision.
+7. Prefer small, logical changes.
+8. Maintain consistency with the existing style and architecture.
+9. Every significant feature should have appropriate tests.
+10. After changes, run the appropriate quality checks.
 
-Nie twórz nadmiernie abstrakcyjnego frameworka ani rozbudowanej platformy. Nie komplikuj rozwiązania tylko po to, aby formalnie spełniało każdą zasadę SOLID.
+### Overriding principle
 
-**Buduj prostą, modularną, testowalną i rozszerzalną grę TUI, która wygląda i działa jak dopracowany produkt.**
+Do not create an excessively abstract framework or an elaborate platform. Do not complicate the solution just to formally satisfy every SOLID principle.
 
-## 22. Oczekiwany sposób pracy agenta
+**Build a simple, modular, testable and extensible TUI game that looks and works like a polished product.**
 
-Przed implementacją:
+## 22. Expected way of working for the agent
 
-- przeanalizuj aktualny stan repozytorium;
-- sprawdź istniejącą dokumentację i testy;
-- porównaj stan z wymaganiami tego promptu;
-- wskaż rozbieżności i brakujące decyzje;
-- zaproponuj minimalny plan kolejnych kroków.
+Before implementation:
 
-Podczas implementacji:
+- analyze the current state of the repository;
+- check the existing documentation and tests;
+- compare the state with the requirements of this prompt;
+- indicate discrepancies and missing decisions;
+- propose a minimal plan of the next steps.
 
-- pracuj małymi krokami;
-- nie zmieniaj niezwiązanych obszarów;
-- dodawaj testy razem z funkcjonalnością;
-- przestrzegaj granic architektonicznych;
-- raportuj decyzje i kompromisy.
+During implementation:
 
-Po implementacji:
+- work in small steps;
+- do not change unrelated areas;
+- add tests together with the functionality;
+- respect the architectural boundaries;
+- report decisions and trade-offs.
 
-- uruchom formatowanie, Clippy, kompilację i odpowiednie testy;
-- sprawdź wpływ zmian na architekturę;
-- przedstaw podsumowanie zmian, wyniki kontroli i znane ograniczenia.
+After implementation:
 
-Nie deklaruj wykonania testów, których faktycznie nie uruchomiono. Nie deklaruj poprawności funkcji, których nie zweryfikowano.
+- run formatting, Clippy, compilation and the relevant tests;
+- check the impact of the changes on the architecture;
+- present a summary of the changes, the results of the checks and the known limitations.
 
-Podziel pracę na logiczne fazy, najparwdobodnowbniej  nie ma tokeńów na cały projekt, moższe w  zbudować /docs/task_list i przypisać je  do modelu Haiku 5.5, Sonnet 5.5 lub Antigravity Gemini 3.8 Flash. Mam 3 instancje Geminii ale tylko jedna instacje Claude
+Do not declare that tests were run when they were not actually run. Do not declare the correctness of functions that have not been verified.
+
+Work is split into phases and micro tasks in `docs/task_list/README.md`: Fable is architect and manager and does not do routine writing, Sonnet and Haiku implement, and Antigravity (Gemini 3.8 Flash) instances get only small, self-contained tasks because they lose context and are slow [amended: R-09].
