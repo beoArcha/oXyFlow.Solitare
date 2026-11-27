@@ -69,7 +69,7 @@ rusqlite = { version = "0.43.0", features = ["bundled"] }
 syn = { version = "3.0.10", features = ["full", "visit"] }
 proc-macro2 = { version = "1.0.107", features = ["span-locations"] }
 toml_edit = "0.25.19"
-ra-ap-rustc_lexer = "0.185.0"
+ra-ap-rustc_lexer = "0.186.0"
 tempfile = "3.27.0"
 time = { version = "0.3.55", features = ["local-offset"] }
 midly = "0.5.3"
